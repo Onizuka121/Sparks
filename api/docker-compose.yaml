@@ -1,0 +1,19 @@
+services:
+  db:
+      image: mysql:8.0
+      container_name: sparks-db
+      volumes:
+        - .docker/storage/mysql:/var/lib/mysql
+      ports:
+        - "3306:3306"
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: sparks_db
+  web:
+    build: .
+    command: sh -c "uvicorn main:app --reload --port=8000 --host=0.0.0.0"
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+     

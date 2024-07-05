@@ -1,0 +1,276 @@
+*{
+    box-sizing: border-box;
+}
+html { height:100%; }
+.background-app{
+    background-image: url("https://backiee.com/static/wallpapers/1000x563/171208.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+body {
+    width: 100%;
+}
+
+.container-main{
+    height: 95%;
+}
+
+
+/*google fonts*/
+.prompt-thin {
+    font-family: "Prompt", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+  }
+  
+  .prompt-extralight {
+    font-family: "Prompt", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+  }
+  
+  .prompt-light {
+    font-family: "Prompt", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+  .prompt-regular {
+    font-family: "Prompt", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .prompt-medium {
+    font-family: "Prompt", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  .prompt-semibold {
+    font-family: "Prompt", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+  }
+  
+  .prompt-bold {
+    font-family: "Prompt", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .prompt-extrabold {
+    font-family: "Prompt", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+  }
+  
+  .prompt-black {
+    font-family: "Prompt", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+  }
+  
+  .prompt-thin-italic {
+    font-family: "Prompt", sans-serif;
+    font-weight: 100;
+    font-style: italic;
+  }
+  
+  .prompt-extralight-italic {
+    font-family: "Prompt", sans-serif;
+    font-weight: 200;
+    font-style: italic;
+  }
+  
+  .prompt-light-italic {
+    font-family: "Prompt", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  .prompt-regular-italic {
+    font-family: "Prompt", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .prompt-medium-italic {
+    font-family: "Prompt", sans-serif;
+    font-weight: 500;
+    font-style: italic;
+  }
+  
+  .prompt-semibold-italic {
+    font-family: "Prompt", sans-serif;
+    font-weight: 600;
+    font-style: italic;
+  }
+  
+  .prompt-bold-italic {
+    font-family: "Prompt", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+  }
+  
+  .prompt-extrabold-italic {
+    font-family: "Prompt", sans-serif;
+    font-weight: 800;
+    font-style: italic;
+  }
+  
+  .prompt-black-italic {
+    font-family: "Prompt", sans-serif;
+    font-weight: 900;
+    font-style: italic;
+  }
+/*google fonts fine*/  
+
+.nav{
+    cursor :pointer;
+}
+.sub-span{
+    font-size: 80%;
+}
+
+
+#posts-container{
+    height: 700px;
+
+}
+#posts-container::-webkit-scrollbar {
+    display: none;
+  }
+#chat-container::-webkit-scrollbar{
+  display: none;
+}  
+
+.interazione{
+    cursor: pointer;
+    
+}
+.interazione:hover{
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.like:hover{
+    background-color: rgba(0, 128, 0, 0.16)  !important;
+}
+.comment:hover{
+    background-color: #0dcaf02d !important;
+
+}
+
+.chat-message{
+  overflow-wrap: break-word;
+}
+
+::-moz-selection { 
+    color: white;
+    background: purple;
+  }
+  
+  ::selection {
+    color: white;
+    background: purple;
+  }
+.input-something{
+    border: none;
+    outline: none;
+    width: 100%;
+}  
+
+
+@media only screen and (max-height:800px) {
+  
+  .container-main{
+    height: 85%;
+}
+
+#posts-container{
+  height: 350px;
+}
+#chat-container{
+  height: 430px;
+  
+}
+}
+
+.input-chat{
+  outline: none;
+  border: none;
+}
+.bg-input-chat{
+  background-color: rgb(220, 219, 219);
+}
+#modifica-profilo-btn{
+  cursor: pointer;
+}
+.start-70{
+  right: 0;
+}
+.start-60{
+  right: 5%;
+}
+.start-25{
+  left: 20%;
+}
+.online-checker{
+  background-color: rgb(84, 211, 84) !important;
+  border-radius: 100%;
+  font-size: 6px !important;
+  color: rgb(86, 212, 86);
+  border: 1px solid white;
+  top: 80% !important;
+}
+
+#followers-container{
+  overflow-y: scroll;
+  height: 200px;
+  gap: 2px;
+}
+#followers-container::-webkit-scrollbar {
+  display: none; 
+}
+
+.follower:hover{
+  background-color: rgba(0, 0, 0, 0.929);
+  color: white;
+  cursor: pointer;
+}
+
+#chat-container{
+  height: 530px;
+  inline-size: min-content;
+  
+}
+
+.img-profile{
+  height: 250px;
+}
+
+.follow-btn{
+  cursor: pointer;
+}
+
+.input-login{
+  border: none;
+  background-color: rgb(255, 255, 255);
+  outline: none;
+}
+
+#home-page-container,#signup-page-container{
+  display: none !important;
+}
+
+@media only screen and (max-height:600px) {
+  
+  .container-main{
+    height: 85%;
+}
+
+#posts-container{
+  height: 310px;
+
+}
+}
