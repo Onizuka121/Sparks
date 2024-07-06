@@ -14,6 +14,12 @@ services:
     command: sh -c "uvicorn main:app --reload --port=8000 --host=0.0.0.0"
     ports:
       - 8000:8000
+    environment:
+      DB_HOST: 192.168.0.120
+      DB_USER: root
+      DB_PASSWORD: sparks_db
+      DB_NAME: sparks_db   
     volumes:
       - .:/app
+    
      

@@ -74,13 +74,45 @@ window.onload = function () {
       document.getElementById("btn-send").click();
   }});
 
-  function CheckLoginCredentials(){
-    document.getElementById("login-page-container").style.cssText = csstext_hide_element;
-    document.getElementById("home-page-container").style.cssText = csstext_show_element;
+  async function CheckLoginCredentials(){
+    
+    var username_value = document.getElementById("username_login").value.trim()
+    var password_value = document.getElementById("password_login").value.trim()
+
+    var richiesta = new Request("http://localhost:8000/login", {
+      method: "POST",
+      headers: new Headers({
+         "Content-Type": "application/json"
+      }),
+      body: JSON.stringify({
+         username: username_value,
+         password_user: password_value
+      })
+   });
+   fetch(richiesta)
+    .then(response => response.json())
+    .then(res => {
+      var toast_user = new bootstrap.Toast(document.getElementById('live-toast-user'));
+      var toast_password = new bootstrap.Toast(document.getElementById('live-toast-password'));
+      if(res.is_correct_username){
+        if(res.is_correct_pass){
+            document.getElementById("login-page-container").style.cssText = csstext_hide_element;
+            document.getElementById("home-page-container").style.cssText = csstext_show_element;
+            sessionStorage.setItem("username", username_value)
+        }else{
+          toast_password.show();
+        }
+      }else{
+        toast_user.show();
+      }
+    })
+    .catch(error => console.log("Si è verificato un errore!",error))
+
   }
 
   function SignUpUser(){
     
   }
+
 
 };
