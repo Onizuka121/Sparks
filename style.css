@@ -16,6 +16,9 @@ body {
     height: 95%;
 }
 
+#exit-btn{
+  cursor: pointer;
+}
 
 /*google fonts*/
 .prompt-thin {

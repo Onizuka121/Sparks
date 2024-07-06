@@ -67,6 +67,13 @@
       </div>
     </div>
   </div>
+  <div class="position-fixed bottom-0 end-0 p-4" style="z-index: 11">
+    <div id="live-toast-success-signup" class="toast p-2" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body text-success prompt-medium fs-5">
+            Account creato con successo
+        </div>
+    </div>
+  </div>
   <div class="container d-flex flex-column align-items-center m-auto mt-5" id="signup-page-container">
     <div class="col-5 m-auto rounded-5 shadow p-5">
       <div class="container-fluid d-flex flex-column gap-4">
@@ -74,21 +81,51 @@
           <span class="prompt-bold text-light fs-1 text-center">Welcome to <span
               class="text-primary">Sparks</span></span>
           <span class="text-light prompt-light text-center fs-4">Create a new account</span>
+          <div class="position-fixed bottom-0 end-0 p-4" style="z-index: 11">
+            <div id="live-toast-user-signup" class="toast p-2" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-body text-danger prompt-medium fs-5">
+                    Username non disponibile
+                </div>
+            </div>
+          </div>
+          <div class="position-fixed bottom-0 end-0 p-4" style="z-index: 11">
+            <div id="live-toast-password-signup" class="toast p-2" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-body text-danger prompt-medium fs-5">
+                    Password non combaciano
+                </div>
+            </div>
+          </div>
+          <div class="position-fixed bottom-0 end-0 p-4" style="z-index: 11">
+            <div id="live-toast-nome-cognome-signup" class="toast p-2" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-body text-danger prompt-medium fs-5">
+                    Nome e cognome necessari
+                </div>
+            </div>
+          </div>
+          
         </div>
         <div class="row gap-4">
           <div class="col-9 d-flex flex-column text-dark gap-2 m-auto">
             <span class="prompt-light text-light fs-5">Username</span>
-            <input type="text" class="input-login prompt-medium rounded-3 p-2 px-3 fs-5" />
+            <input type="text" id="username_signup" class="input-login prompt-medium rounded-3 p-2 px-3 fs-5" />
           </div>
         </div>
         <div class="row gap-4">
           <div class="col-9 d-flex flex-column text-dark gap-2 m-auto">
             <span class="prompt-light text-light fs-5">Password</span>
-            <input type="password" class="input-login rounded-3 p-2 px-3 fs-5" />
+            <input type="password" id="password_signup" class="input-login rounded-3 p-2 px-3 fs-5" />
           </div>
           <div class="col-9 d-flex flex-column text-dark gap-2 m-auto">
             <span class="prompt-light text-light fs-5">Confirm password</span>
-            <input type="password" class="input-login rounded-3 p-2 px-3 fs-5" />
+            <input type="password" id="password2_signup" class="input-login rounded-3 p-2 px-3 fs-5" />
+          </div>
+          <div class="col-5 d-flex flex-column text-dark gap-2 m-auto">
+            <span class="prompt-light text-light fs-5">Nome</span>
+            <input type="text" id="nome_signup" class="input-login prompt-medium rounded-3 p-2 px-3 fs-5" />
+          </div>
+          <div class="col-5 d-flex flex-column text-dark gap-2 m-auto">
+            <span class="prompt-light text-light fs-5">Cognome</span>
+            <input type="text" id="cognome_signup" class="input-login prompt-medium rounded-3 p-2 px-3 fs-5" />
           </div>
         </div>
         <hr class="text-light w-75 p-2 m-auto">
@@ -104,25 +141,25 @@
   <div class="container container-main rounded-5 p-3 text-light m-auto mt-3 bg-light shadow row gap-2 "
     id="home-page-container">
     <div class="d-flex container-fluid gap-4">
-      <div class="col-3 d-flex flex-column gap-3">
+      <div class="col-3 d-xl-flex d-none flex-column gap-3">
         <div class="p-3 d-flex flex-column justify-content-center border rounded-5">
           <div class="m-auto">
-            <img src="https://i.pinimg.com/564x/e6/b8/32/e6b83228c468135c85a4cc5ab320c1ac.jpg" alt=""
+            <img id="img-profile-view-general" src="" alt=""
               class="rounded-pill" width="100" height="100" />
           </div>
           <div class="text-dark pt-2 text-center pb-2">
             <figure>
               <blockquote class="blockquote">
-                <p class="fs-5 prompt-medium">Onizuka Bene</p>
+                <p class="fs-5 prompt-medium" id="nome-cognome-view-general">Onizuka Bene</p>
               </blockquote>
-              <figcaption class="blockquote-footer text-light">
-                <span class="prompt-light text-body-tertiary">@onizukabene</span>
+              <figcaption class="text-light">
+                <span class="prompt-light text-body-tertiary fs-6 mt-5" id="username-view-general">@onizukabene</span>
               </figcaption>
             </figure>
             <div class="p-2 row">
               <div class="col d-flex flex-column gap-0">
                 <div>
-                  <span class="prompt-bold fs-4 text-primary">567</span>
+                  <span class="prompt-bold fs-4 text-primary" id="n-followers-view-general">567</span>
                 </div>
                 <div>
                   <span class="text-body-tertiary">followers</span>
@@ -147,7 +184,7 @@
               </span>
             </div>
 
-            <div class="nav w-100 p-2 rounded-4 gap-2" id="username">
+            <div class="nav w-100 p-2 rounded-4 gap-2" id="profile">
               <span class="material-symbols-outlined">person</span>
               Profile
             </div>
@@ -221,7 +258,7 @@
           </div>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col col-xl-6">
         <div id="feeds-container">
           <p class="fs-3 prompt-bold text-dark" id="title-selected">Feeds</p>
           <div class="container-fluid p-2 d-flex flex-column overflow-auto" id="posts-container">
@@ -429,7 +466,7 @@
                 </figure>
               </div>
               <div class="col p-2">
-                <div class="col border rounded-5 text-center shadow p-2" id="modifica-profilo-btn">
+                <div class="col border rounded-5 text-center shadow p-2" id="modifica-profilo-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                   <p class="fs-5 align-middle m-auto text-dark prompt-medium">
                     modifica profilo
                   </p>
@@ -442,8 +479,21 @@
                 MONDO. These classes can be customized as needed with our
                 utility API. &#128511; &#128511;
               </p>
+              <div class="row p-3">
+                <div class="col-10">
+                
+                </div>
+                <div class="col bg-danger d-flex align-items-center rounded-5 p-2 text-center" id="exit-btn">
+                  <span class="material-symbols-outlined text-center m-auto">
+                    logout
+                    </span>
+                </div>
+              </div>
             </div>
-          </div>
+            </div>
+           
+          
+         
         </div>
         <div id="username-container" style="display: none">
           <p class="fs-3 prompt-bold text-dark" id="title-selected">
@@ -510,7 +560,8 @@
           </div>
         </div>
       </div>
-      <div class="col d-flex flex-column gap-3">
+
+      <div class="col d-flex flex-column gap-3 d-none d-xl-flex">
         <div class="pt-4 border rounded-5 text-dark">
           <div class="d-flex text-center justify-content-center gap-2 align-items-center">
             <p class="prompt-medium fs-5 text-center align-middle">
@@ -613,17 +664,80 @@
           </div>
         </div>
         <div class="pt-4 border w-50 m-auto rounded-pill text-dark shadow">
-          <div class="d-flex text-center justify-content-center gap-2 align-items-center">
-            <p class="prompt-medium fs-5 text-center align-middle">Share</p>
+          <div class="d-flex text-center justify-content-center align-items-center">
           </div>
 
-          <div class="container d-flex flex-column gap-2 pb-2">
-            <div class="col m-auto rounded-pill p-2 text-dark text-center">
-              <span class="material-symbols-outlined m-auto align-middle fs-1">
+          <div class="container d-flex flex-column pb-4">
+            <div class="col m-auto rounded-pill text-dark text-center">
+              <span class="material-symbols-outlined m-auto align-middle fs-1" style="font-size: 350% !important; cursor: pointer;">
                 add_circle
               </span>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+   
+    
+    <div class="modal-dialog modal-dialog-centered prompt-medium">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-4" id="staticBackdropLabel">Modifica profilo</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body container-fluid p-3">
+          <div class="container-fluid d-flex flex-column gap-3">
+            <div class="m-auto w-25">
+              <img id="modifica-img-profile" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F009%2F292%2F244%2Foriginal%2Fdefault-avatar-icon-of-social-media-user-vector.jpg&f=1&nofb=1&ipt=30ecd67e8a826fc9133f03458abfbaf765b17fb95f307d31defd3a70984f01fd&ipo=images" alt=""
+                class="rounded-pill " width="100" height="100" />
+            </div>
+            <div class="col-9">
+              <div class="mb-3">
+                <label for="modifica-username" class="form-label">Username</label>
+                <input type="text" class="form-control bg-body-tertiary" id="modifica-username" disabled value="Onizuka">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="mb-3">
+                  <label for="modifica-nome" class="form-label">Nome</label>
+                  <input type="text" class="form-control bg-body-tertiary" id="modifica-nome" value="Bene">
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="mb-3">
+                  <label for="modifica-cognome" class="form-label">Cognome</label>
+                  <input type="text" class="form-control bg-body-tertiary" id="modifica-cognome" value="Onizuka">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="mb-3">
+                  <label for="modifica-descrizione" class="form-label">Descrizione</label>
+                  <textarea class="form-control" id="modifica-descrizione" rows="3">
+                    🗿 Mi chiamo bene e sono il piu grande GORILLA DEL MONDO. These classes can be customized as needed with our utility API. 🗿 🗿
+                  </textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="mb-3">
+                  <label for="modifica-url-foto-profilo" class="form-label">URL foto profilo</label>
+                  <input type="text" class="form-control bg-body-tertiary" id="modifica-url-foto-profilo" value="https://i.pinimg.com/564x/e6/b8/32/e6b83228c468135c85a4cc5ab320c1ac.jpg">
+                </div>
+              </div>
+            </div>
+          </div>
+         
+          
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" style="border: none;" class="btn btn-dark outline-none rounded-3">modifica</button>
         </div>
       </div>
     </div>
