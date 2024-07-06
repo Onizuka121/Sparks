@@ -12,6 +12,16 @@ body {
     width: 100%;
 }
 
+
+#modifica-img-profilo-back{
+  background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.osxdaily.com%2Fwp-content%2Fuploads%2F2023%2F06%2FiPadOS-17-wallpaper-Light-2048x1996.jpg&f=1&nofb=1&ipt=fa491b0f3621219a7ab07f939e1e6a8387b3e0ac04dfbafd65d3c8d9226abe55&ipo=images");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#modifica-img-profile{
+  border: 9px solid white !important;
+}
 .container-main{
     height: 95%;
 }

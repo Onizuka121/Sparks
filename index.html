@@ -681,7 +681,7 @@
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
    
     
-    <div class="modal-dialog modal-dialog-centered prompt-medium">
+    <div class="modal-dialog modal-dialog-centered prompt-medium modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-4" id="staticBackdropLabel">Modifica profilo</h1>
@@ -689,10 +689,13 @@
         </div>
         <div class="modal-body container-fluid p-3">
           <div class="container-fluid d-flex flex-column gap-3">
-            <div class="m-auto w-25">
-              <img id="modifica-img-profile" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F009%2F292%2F244%2Foriginal%2Fdefault-avatar-icon-of-social-media-user-vector.jpg&f=1&nofb=1&ipt=30ecd67e8a826fc9133f03458abfbaf765b17fb95f307d31defd3a70984f01fd&ipo=images" alt=""
-                class="rounded-pill " width="100" height="100" />
+            <div class="col border shadow rounded-top-4 p-3" id="modifica-img-profilo-back">
+              <div class="w-25">
+                <img id="modifica-img-profile" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F009%2F292%2F244%2Foriginal%2Fdefault-avatar-icon-of-social-media-user-vector.jpg&f=1&nofb=1&ipt=30ecd67e8a826fc9133f03458abfbaf765b17fb95f307d31defd3a70984f01fd&ipo=images" alt=""
+                  class="rounded-pill border border-light" width="100" height="100" />
+              </div>
             </div>
+            
             <div class="col-9">
               <div class="mb-3">
                 <label for="modifica-username" class="form-label">Username</label>
@@ -727,7 +730,15 @@
               <div class="col">
                 <div class="mb-3">
                   <label for="modifica-url-foto-profilo" class="form-label">URL foto profilo</label>
-                  <input type="text" class="form-control bg-body-tertiary" id="modifica-url-foto-profilo" value="https://i.pinimg.com/564x/e6/b8/32/e6b83228c468135c85a4cc5ab320c1ac.jpg">
+                  <input type="text" class="form-control bg-body-tertiary" id="modifica-url-foto-profilo">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="mb-3">
+                  <label for="modifica-url-foto-profilo-back" class="form-label">URL foto background</label>
+                  <input type="text" class="form-control bg-body-tertiary" id="modifica-url-foto-profilo-back">
                 </div>
               </div>
             </div>
@@ -737,7 +748,7 @@
          
         </div>
         <div class="modal-footer">
-          <button type="button" style="border: none;" class="btn btn-dark outline-none rounded-3">modifica</button>
+          <button type="button" id="modifica-btn" style="border: none;" data-bs-dismiss="modal" class="btn btn-dark outline-none rounded-3">modifica</button>
         </div>
       </div>
     </div>
