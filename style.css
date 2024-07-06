@@ -13,10 +13,18 @@ body {
 }
 
 
-#modifica-img-profilo-back{
-  background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.osxdaily.com%2Fwp-content%2Fuploads%2F2023%2F06%2FiPadOS-17-wallpaper-Light-2048x1996.jpg&f=1&nofb=1&ipt=fa491b0f3621219a7ab07f939e1e6a8387b3e0ac04dfbafd65d3c8d9226abe55&ipo=images");
+#modifica-img-profilo-back,#background-profile{
+  background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp3306770.jpg&f=1&nofb=1&ipt=255ec2b94debd3c98f2d21875275b96d20497c8d368fb97852040289beccfa50&ipo=images");
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+#btn-insert-href-feed{
+  cursor: pointer;
+}
+#btn-insert-href-feed:hover{
+  background-color: black !important;
+  color: white !important;
 }
 
 #modifica-img-profile{

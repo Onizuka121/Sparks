@@ -39,7 +39,7 @@ class Feed(BaseModel):
     cod_feed:int
     descrizione:str
     url_foto_feed:str
-    data_inserimento:str=getDateOfNowFormatted()
+    data_inserimento:str
     username_inser:str
     url_foto_user_feed:str
 
@@ -59,7 +59,7 @@ db = mysql.connector.connect(
 @app.get("/allfeeds/{username}")
 async def getAllFeedsOfFollowings(username:str):
     cursor = db.cursor()
-    cursor.execute(f"SELECT feeds.*,utenti.url_foto_profilo FROM feeds INNER JOIN seguiti ON feeds.username_inser = seguiti.username_seguito INNER JOIN utenti ON utenti.username = feeds.username_inser WHERE seguiti.username_seguente  = '{username}'")
+    cursor.execute(f"SELECT feeds.*,utenti.url_foto_profilo FROM feeds INNER JOIN seguiti ON feeds.username_inser = seguiti.username_seguito INNER JOIN utenti ON utenti.username = feeds.username_inser WHERE seguiti.username_seguente  = '{username}' ORDER BY feeds.data_inserimento")
     result = cursor.fetchall()
     feeds = []
     for feed in result:
@@ -82,6 +82,7 @@ async def getAllFeedsOfFollowings(username:str):
 
 @app.put("/insertFeed")
 async def insertFeed(feed:Feed):
+    feed.data_inserimento = getDateOfNowFormatted()
     cursor = db.cursor()
     sql = "INSERT INTO feeds(descrizione, url_foto_feed ,data_inserimento, username_inser) VALUES (%s, %s,%s, %s)"
     val = (feed.descrizione,feed.url_foto_feed,feed.data_inserimento,feed.username_inser)
@@ -141,6 +142,16 @@ async def signup(userbase:UserBase):
 
 @app.post("/modifyUser")
 async def modifyUser(user:User):
+    cursor = db.cursor()
+    sql = f"""UPDATE utenti 
+    SET nome = '{user.nome}',
+    cognome = '{user.cognome}',
+    descrizione = '{user.descrizione}',
+    url_foto_profilo = '{user.url_profilo}',
+    url_foto_background_profilo = '{user.url_back_profilo}'
+    WHERE username = '{user.username}'"""
+    cursor.execute(sql)
+    db.commit()
     return {"res": user}
 
 

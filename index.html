@@ -262,64 +262,7 @@
         <div id="feeds-container">
           <p class="fs-3 prompt-bold text-dark" id="title-selected">Feeds</p>
           <div class="container-fluid p-2 d-flex flex-column overflow-auto" id="posts-container">
-            <div class="p-3 d-flex flex-column border rounded-5 text-dark mb-3 shadow w-100">
-              <div class="row text-dark">
-                <div class="col d-flex flex-row gap-3">
-                  <img src="https://i.pinimg.com/736x/e8/3c/6a/e83c6a96199967b25b49bab731474d23.jpg" alt=""
-                    class="rounded-pill" width="50" height="50" />
-                  <figure>
-                    <blockquote class="blockquote">
-                      <p class="prompt-medium fs-6">Ms Ghost</p>
-                    </blockquote>
-                    <figcaption class="blockquote-footer prompt-extralight">
-                      <span class="sub-span">2 Jul 2024</span>
-                    </figcaption>
-                  </figure>
-                </div>
-              </div>
-              <div class="px-2 w-100">
-                <p class="lh-sm prompt-regular">
-                  &#128511; This is a long paragraph written to show how the
-                  line-height of an element is affected by our utilities.
-                  Classes are applied to the element itself &#128526; or
-                  sometimes the parent element. These classes can be
-                  customized as needed with our utility API. &#128511;
-                  &#128511;
-                </p>
-                <div class="container-fluid">
-                  <img src="https://i.pinimg.com/564x/7b/92/1d/7b921d6f0334e5f6619079fecd8d0510.jpg"
-                    class="img-fluid rounded-5" alt="..." />
-                </div>
-              </div>
-
-              <div class="container">
-                <div class="row p-4 px-2 w-100">
-                  <div class="col p-3 text-center">
-                    <div class="rounded-5 fs-6 prompt-regular text-primary d-flex flex-row align-items-center gap-2">
-                      <span class="material-symbols-outlined text-center">
-                        visibility
-                      </span>
-                      4563
-                    </div>
-                  </div>
-                  <div class="col interazione like p-3 rounded-5 text-center">
-                    <div class="rounded-5 fs-6 prompt-regular text-success d-flex flex-row align-items-center gap-2">
-                      <span class="material-symbols-outlined">
-                        thumb_up
-                      </span>
-                      564
-                    </div>
-                  </div>
-                  <div class="col interazione comment p-3 rounded-5 text-center">
-                    <div class="rounded-5 fs-6 prompt-regular text-info d-flex flex-row align-items-center gap-2">
-                      <span class="material-symbols-outlined"> comment </span>
-                      34
-                    </div>
-                  </div>
-                  <div class="col-5"></div>
-                </div>
-              </div>
-            </div>
+            
           </div>
           <br />
         </div>
@@ -425,12 +368,12 @@
 
           <div class="container border rounded-5 p-0">
             <div class="container-fluid img-profile rounded-top-5 w-100 position-relative" style="
-                  background-image: url('https://i.pinimg.com/564x/60/86/4d/60864d4788b250ca153ca932a1161e72.jpg');
-                ">
+                  background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp3306770.jpg&f=1&nofb=1&ipt=255ec2b94debd3c98f2d21875275b96d20497c8d368fb97852040289beccfa50&ipo=images');
+                " id="background-profile">
               <span class="position-absolute top-100 start-25 translate-middle badge rounded-pill bg-light">
                 <div class="m-auto">
-                  <img src="https://i.pinimg.com/564x/e6/b8/32/e6b83228c468135c85a4cc5ab320c1ac.jpg" alt=""
-                    class="rounded-pill" width="200" height="200" />
+                  <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F009%2F292%2F244%2Foriginal%2Fdefault-avatar-icon-of-social-media-user-vector.jpg&f=1&nofb=1&ipt=30ecd67e8a826fc9133f03458abfbaf765b17fb95f307d31defd3a70984f01fd&ipo=images" alt=""
+                    class="rounded-pill" width="200" height="200"  id="profilo-img"/>
                 </div>
                 <span class="visually-hidden">unread messages</span>
               </span>
@@ -439,7 +382,7 @@
               <div class="col-5"></div>
               <div class="col text-dark text-center">
                 <div>
-                  <span class="prompt-bold fs-4 text-primary">567</span>
+                  <span class="prompt-bold fs-4 text-primary" id="n-followers-profilo"></span>
                 </div>
                 <div>
                   <span class="text-body-tertiary">followers</span>
@@ -447,7 +390,7 @@
               </div>
               <div class="col text-dark text-center">
                 <div>
-                  <span class="prompt-bold fs-4 text-primary">3451</span>
+                  <span class="prompt-bold fs-4 text-primary" id="n-followings-profilo"></span>
                 </div>
                 <div>
                   <span class="text-body-tertiary">followings</span>
@@ -458,15 +401,15 @@
               <div class="col text-dark">
                 <figure>
                   <blockquote class="blockquote">
-                    <p class="fs-3 prompt-bold">Onizuka Bene</p>
+                    <p class="fs-3 prompt-bold" id="nome-cognome-profilo"></p>
                   </blockquote>
                   <figcaption class="blockquote-footer text-light">
-                    <span class="prompt-light fs-5 text-body-tertiary">@onizukabene</span>
+                    <span class="prompt-light fs-5 text-body-tertiary" id="username-profilo"></span>
                   </figcaption>
                 </figure>
               </div>
               <div class="col p-2">
-                <div class="col border rounded-5 text-center shadow p-2" id="modifica-profilo-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <div class="col border rounded-5 text-center shadow p-2" id="modifica-profilo-btn" data-bs-toggle="modal" data-bs-target="#modal-modifica-profilo">
                   <p class="fs-5 align-middle m-auto text-dark prompt-medium">
                     modifica profilo
                   </p>
@@ -474,14 +417,10 @@
               </div>
             </div>
             <div class="row px-4">
-              <p class="lh-sm prompt-regular text-dark">
-                &#128511; Mi chiamo bene e sono il piu grande GORILLA DEL
-                MONDO. These classes can be customized as needed with our
-                utility API. &#128511; &#128511;
+              <p class="lh-sm prompt-regular text-dark" id="descrizione-profilo">
               </p>
               <div class="row p-3">
                 <div class="col-10">
-                
                 </div>
                 <div class="col bg-danger d-flex align-items-center rounded-5 p-2 text-center" id="exit-btn">
                   <span class="material-symbols-outlined text-center m-auto">
@@ -668,8 +607,8 @@
           </div>
 
           <div class="container d-flex flex-column pb-4">
-            <div class="col m-auto rounded-pill text-dark text-center">
-              <span class="material-symbols-outlined m-auto align-middle fs-1" style="font-size: 350% !important; cursor: pointer;">
+            <div class="col m-auto rounded-pill text-dark text-center" id="btn-insert-href-feed" data-bs-toggle="modal" data-bs-target="#modal-insert-feed">
+              <span class="material-symbols-outlined m-auto align-middle fs-1" style="font-size: 350% !important;">
                 add_circle
               </span>
             </div>
@@ -678,9 +617,7 @@
       </div>
     </div>
   </div>
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-   
-    
+  <div class="modal fade" id="modal-modifica-profilo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered prompt-medium modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
@@ -699,7 +636,7 @@
             <div class="col-9">
               <div class="mb-3">
                 <label for="modifica-username" class="form-label">Username</label>
-                <input type="text" class="form-control bg-body-tertiary" id="modifica-username" disabled value="Onizuka">
+                <input type="text" class="form-control bg-body-tertiary" id="modifica-username" disabled>
               </div>
             </div>
             <div class="row">
@@ -749,6 +686,51 @@
         </div>
         <div class="modal-footer">
           <button type="button" id="modifica-btn" style="border: none;" data-bs-dismiss="modal" class="btn btn-dark outline-none rounded-3">modifica</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modal-insert-feed" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered prompt-medium modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-4" id="staticBackdropLabel">Inserisci un nuovo feed</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body container-fluid p-3">
+          <div class="container-fluid d-flex flex-column gap-3">
+           
+            <div class="row">
+              <div class="col">
+                <div class="mb-3">
+                  <label for="insert-feed-descrizione" class="form-label">Descrizione</label>
+                  <textarea class="form-control" id="insert-feed-descrizione" rows="3">
+                  </textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="mb-3">
+                  <label for="insert-feed-url-foto-input" class="form-label">URL foto feed</label>
+                  <input type="text" class="form-control bg-body-tertiary" id="insert-feed-url-foto-input">
+                </div>
+              </div>
+            </div>
+            <div class="col p-3">
+              <div class="container-fluid">
+                <img id="insert-feed-url-foto" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fkubalubra.is%2Fwp-content%2Fuploads%2F2017%2F11%2Fdefault-thumbnail.jpg&f=1&nofb=1&ipt=bd5107dc161e980606042866e225d71ac355d4c5aeec5383947ddad5e5af2e24&ipo=images"
+                  class="img-fluid rounded-5 shadow" alt="..." />
+              </div>
+            </div>
+            
+          </div>
+         
+          
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="insert-feed-btn" style="border: none;" data-bs-dismiss="modal" class="btn btn-dark outline-none rounded-3">inserisci</button>
         </div>
       </div>
     </div>
