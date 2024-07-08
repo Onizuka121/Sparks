@@ -29,7 +29,7 @@ class User(UserBase):
 
 class followBase(BaseModel):
     username_seguente:str
-    username_seguito:str
+    username_seguito:str    
 
 def getDateOfNowFormatted():
     x = datetime.datetime.now()
@@ -166,6 +166,24 @@ async def follow(followBase:followBase):
         return {"res_follow":True}
     else:
         return {"res_follow":False}
+
+@app.get("/getUsernameFollowings/{username}")
+async def getUsernameFollowings(username:str):
+    cursor = db.cursor()
+    cursor.execute(f"""SELECT username_seguito,utenti.url_foto_profilo
+                    FROM seguiti 
+                    INNER JOIN utenti
+                    ON seguiti.username_seguito = utenti.username
+                    WHERE username_seguente = '{username}';""")
+    usernames = []
+    for followings in cursor.fetchall():
+        usernames.append({
+            "username":followings[0],
+            "url_foto_profilo":followings[1]
+        })
+    return {"followings_data_general":usernames}    
+
+
 
 
 def getMD5HashOfPassword(password:str):

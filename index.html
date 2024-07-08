@@ -201,7 +201,7 @@
             </p>
           </div>
 
-          <div class="container d-flex flex-column gap-2" id="followers-container">
+          <div class="container d-flex flex-column gap-2" id="chats-container">
             <div class="row w-100 border rounded-pill p-2 m-auto follower">
               <div class="col d-flex flex-row gap-1">
                 <div class="rounded-pill position-relative">
@@ -504,65 +504,11 @@
         <div class="pt-4 border rounded-5 text-dark">
           <div class="d-flex text-center justify-content-center gap-2 align-items-center">
             <p class="prompt-medium fs-5 text-center align-middle">
-              Followings <span class="badge text-bg-dark">564</span>
+              Followings <span class="badge text-bg-dark" id="n_followings_view_left"></span>
             </p>
           </div>
 
-          <div class="container d-flex flex-column gap-2" id="followers-container">
-            <div class="row w-100 border rounded-pill p-2 m-auto follower">
-              <div class="col d-flex flex-row gap-1">
-                <div class="rounded-pill position-relative">
-                  <img src="https://i.pinimg.com/736x/e8/3c/6a/e83c6a96199967b25b49bab731474d23.jpg" alt=""
-                    class="rounded-pill m-auto" width="30" height="30" />
-                  <span
-                    class="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-success online-checker">
-                    1
-                    <span class="visually-hidden">unread messages</span>
-                  </span>
-                </div>
-
-                <p class="prompt-medium fs-6 m-auto">Ms Ghost</p>
-              </div>
-            </div>
-            <div class="row w-100 border rounded-pill p-2 p-2 m-auto follower">
-              <div class="col d-flex flex-row gap-1">
-                <div class="rounded-pill position-relative">
-                  <img src="https://i.pinimg.com/564x/07/53/da/0753dad50d8066ab434d8099692b293d.jpg" alt=""
-                    class="rounded-pill m-auto" width="30" height="30" />
-                </div>
-
-                <p class="prompt-medium fs-6 m-auto">Bene</p>
-              </div>
-            </div>
-            <div class="row w-100 border rounded-pill p-2 p-2 m-auto follower">
-              <div class="col d-flex flex-row gap-1">
-                <div class="rounded-pill position-relative">
-                  <img src="https://i.pinimg.com/736x/f3/b7/e4/f3b7e4fce1e312556a95aa53d2a465de.jpg" alt=""
-                    class="rounded-pill m-auto" width="30" height="30" />
-                  <span
-                    class="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-success online-checker">
-                    1
-                    <span class="visually-hidden">unread messages</span>
-                  </span>
-                </div>
-                <p class="prompt-medium fs-6 m-auto">Koala rs</p>
-              </div>
-            </div>
-            <div class="row w-100 border rounded-pill p-2 p-2 m-auto follower">
-              <div class="col d-flex flex-row gap-1">
-                <div class="rounded-pill position-relative">
-                  <img src="https://i.pinimg.com/736x/f3/b7/e4/f3b7e4fce1e312556a95aa53d2a465de.jpg" alt=""
-                    class="rounded-pill m-auto" width="30" height="30" />
-                  <span
-                    class="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-success online-checker">
-                    1
-                    <span class="visually-hidden">unread messages</span>
-                  </span>
-                </div>
-                <p class="prompt-medium fs-6 m-auto">Koala rs</p>
-              </div>
-            </div>
-          </div>
+          <div class="container d-flex flex-column gap-2" id="followers-container"></div>
         </div>
         <div class="pt-4 border rounded-5 text-dark">
           <div class="d-flex text-center justify-content-center gap-2 align-items-center">
@@ -572,6 +518,20 @@
           </div>
 
           <div class="container d-flex flex-column gap-2 pb-2" id="suggestions-container">
+            <div class="row w-100 border rounded-4 p-2 m-auto prompt-medium">
+              <div class="col d-flex flex-row gap-3 align-items-center">
+                <div class="rounded-pill">
+                  <img src="https://i.pinimg.com/736x/e8/3c/6a/e83c6a96199967b25b49bab731474d23.jpg" alt=""
+                    class="rounded-pill m-auto" width="30" height="30" />
+                </div>
+                <div class="mt-3">
+                  <p class="prompt-medium fs-6">Ms Ghost</p>
+                </div>
+                <div class="col rounded-3 bg-dark text-light text-center p-1 fs-6 follow-btn">
+                  follow
+                </div>
+              </div>
+            </div>
             <div class="row w-100 border rounded-4 p-2 m-auto prompt-medium">
               <div class="col d-flex flex-row gap-3 align-items-center">
                 <div class="rounded-pill">

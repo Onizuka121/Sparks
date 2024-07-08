@@ -245,12 +245,12 @@ body {
   top: 80% !important;
 }
 
-#followers-container{
+#followers-container,#suggestions-container{
   overflow-y: scroll;
   height: 200px;
   gap: 2px;
 }
-#followers-container::-webkit-scrollbar {
+#followers-container::-webkit-scrollbar,#suggestions-container::-webkit-scrollbar {
   display: none; 
 }
 

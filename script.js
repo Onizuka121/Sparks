@@ -15,7 +15,7 @@ window.onload = function () {
   let url_def_back = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp3306770.jpg&f=1&nofb=1&ipt=255ec2b94debd3c98f2d21875275b96d20497c8d368fb97852040289beccfa50&ipo=images"
   let csstext_hide_element = "display:none !important";
   let csstext_show_element = "display:flex !important";
-  
+  let result_image_checker = false
 
 
   document.getElementById("btn-login-main").addEventListener("click", CheckLoginCredentials)
@@ -48,25 +48,33 @@ window.onload = function () {
     checkImage(url, 'modifica-img-profilo-back', 'modifica-url-foto-profilo-back', true)
   })
 
-  function checkImage(url, id_img, id_input_url, back = false) {
+  function checkImage(url, id_img = null, id_input_url = null, back = false) {
     var image = new Image();
     image.onload = function () {
       if (this.width > 0) {
-        if (!back) {
-          document.getElementById(id_img).src = url;
-        } else {
-          document.getElementById(id_img).style.backgroundImage = "url(" + url + ")"
-        }
-        document.getElementById(id_input_url).style.border = "2px solid green"
+        if(!id_img){
+          result_image_checker = true
+        }else{
+          if (!back) {
+            document.getElementById(id_img).src = url;
+          } else {
+            document.getElementById(id_img).style.backgroundImage = "url(" + url + ")"
+          }
+          document.getElementById(id_input_url).style.border = "2px solid green"
+        } 
       }
     }
     image.onerror = function () {
-      if (!back) {
-        document.getElementById(id_img).src = url_def_profilo;
-      } else {
-        document.getElementById(id_img).style.backgroundImage = "url(" + url_def_back + ")"
-      }
-      document.getElementById(id_input_url).style.border = "2px solid red"
+      if(!id_img){
+        result_image_checker = false
+      }else{
+        if (!back) {
+          document.getElementById(id_img).src = url_def_profilo;
+        } else {
+          document.getElementById(id_img).style.backgroundImage = "url(" + url_def_back + ")"
+        }
+        document.getElementById(id_input_url).style.border = "2px solid red"
+      } 
     }
     image.src = url;
   }
@@ -373,25 +381,51 @@ window.onload = function () {
     document.getElementById("profilo-img").src = user.userout.url_profilo
     document.getElementById("modifica-img-profile").src = user.userout.url_profilo
     document.getElementById("n-followers-profilo").innerText = user.data_followings_followers.n_followers
+    document.getElementById("n_followings_view_left").innerText = user.data_followings_followers.n_followings
     document.getElementById("n-followings-profilo").innerText = user.data_followings_followers.n_followings
     document.getElementById("nome-cognome-profilo").innerText = user.userout.nome+" "+user.userout.cognome
     document.getElementById("username-profilo").innerText = "@"+user.userout.username
     document.getElementById("descrizione-profilo").innerText = user.userout.descrizione
     //modal data predefiniti
-   
     document.getElementById("modifica-username").value = user.userout.username
     document.getElementById("modifica-nome").value = user.userout.nome
     document.getElementById("modifica-cognome").value = user.userout.cognome
     document.getElementById("modifica-descrizione").value = user.userout.descrizione
     document.getElementById("modifica-url-foto-profilo").value = user.userout.url_profilo
     document.getElementById("modifica-url-foto-profilo-back").value = user.userout.url_back
+    
 
-
-
-
+    getUsernameFollowings()
 
     
     
+  }
+
+  async function getUsernameFollowings(){
+    //followings-container
+    await doFetch("getUsernameFollowings/"+sessionStorage.getItem("username"))
+    .then(users => {
+      users.followings_data_general.forEach(user => {
+        checkImage(user.url_foto_profilo,false)
+        console.log(result_image_checker)
+        document.getElementById('followers-container').innerHTML += `
+        <div class="row w-100 border rounded-pill p-2 m-auto follower">
+               <div class="col d-flex flex-row gap-1">
+                 <div class="rounded-pill position-relative">
+                   <img src="${user.url_foto_profilo}" alt=""
+                     class="rounded-pill m-auto" width="30" height="30" />
+                   <span
+                     class="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-success online-checker">
+                     1
+                     <span class="visually-hidden">unread messages</span>
+                   </span>
+                 </div>
+                 <p class="prompt-medium fs-6 m-auto">${user.username}</p>
+               </div>
+             </div>yf
+       `
+      })
+    })
   }
 
 
