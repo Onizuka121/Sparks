@@ -269,9 +269,19 @@ body {
 .img-profile{
   height: 250px;
 }
+#follow-profilo-btn,#unfollow-profilo-btn{
+  display: none;
+  cursor: pointer;
+}
 
 .follow-btn{
+  display: flex;
   cursor: pointer;
+  height: 40px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
 }
 
 .input-login{

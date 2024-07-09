@@ -3,7 +3,8 @@ window.onload = function () {
 
   let navs = document.getElementsByClassName("nav");
   let navs_array = Array.from(navs);
-  let id_main_containers = ["feeds", "messages", "profile"];
+  
+  let id_main_containers = ["feeds", "messages", "profile" ,"profile-user"];
   let chat_container = document.getElementById("chat-container");
   let toast_user = new bootstrap.Toast(document.getElementById('live-toast-user'));
   let toast_password = new bootstrap.Toast(document.getElementById('live-toast-password'));
@@ -14,9 +15,9 @@ window.onload = function () {
   let url_def_profilo = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F009%2F292%2F244%2Foriginal%2Fdefault-avatar-icon-of-social-media-user-vector.jpg&f=1&nofb=1&ipt=30ecd67e8a826fc9133f03458abfbaf765b17fb95f307d31defd3a70984f01fd&ipo=images"
   let url_def_back = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp3306770.jpg&f=1&nofb=1&ipt=255ec2b94debd3c98f2d21875275b96d20497c8d368fb97852040289beccfa50&ipo=images"
   let csstext_hide_element = "display:none !important";
-  let csstext_show_element = "display:flex !important";
+  let csstext_show_element = "display:block !important";
   let result_image_checker = false
-
+  
 
   document.getElementById("btn-login-main").addEventListener("click", CheckLoginCredentials)
 
@@ -96,17 +97,14 @@ window.onload = function () {
       data_inserimento:"",
       username_inser:sessionStorage.getItem("username"),
       url_foto_user_feed:""
-    },"PUT").then(res => {
-      console.log(res)
-    })
+    },"PUT")
   })
 
   async function getAllFeeds(){
     await doFetch("allfeeds/"+sessionStorage.getItem("username")).then(res => {
-      console.log(res)
+      document.getElementById("posts-container").innerHTML = ""
       res.feeds.forEach(feed => {
-        console.log(feed)
-        document.getElementById("posts-container").innerHTML += getFormattedCardFeed(feed)
+              document.getElementById("posts-container").innerHTML += getFormattedCardFeed(feed)
       })
     })
 
@@ -204,23 +202,29 @@ window.onload = function () {
   });
 
   function HandleNavButton(nav_btn) {
-    navs_array.forEach((el) => {
+    
+      navs_array.forEach((el) => {
       el.classList.remove("shadow");
     });
     nav_btn.classList.add("shadow");
-
+  
     id_main_containers.forEach((id) => {
       document.getElementById(id + "-container").style.cssText = csstext_hide_element;
     });
 
-    document.getElementById(nav_btn.id + "-container").style.cssText =
-      "display:block !important;";
+    if(nav_btn.id == "feeds"){
+      getAllFeeds()
+    }
+
+    document.getElementById(nav_btn.id + "-container").style.cssText = csstext_show_element;
     chat_container.scrollTop = chat_container.scrollHeight;
 
   }
+
+
+
   document.getElementById("btn-send").addEventListener("click", function () {
     let text_sended = document.getElementById("input-chat-main").value;
-    console.log(text_sended);
     if (text_sended != "") {
       chat_container.innerHTML += `
       <div class="row">
@@ -368,7 +372,8 @@ window.onload = function () {
   }
 
 
-  function setDataOfProfilo(user){
+  function setDataOfProfilo(user,user_out=false){
+
 
     if(!user.userout.url_back){
       user.userout.url_back = url_def_back;
@@ -376,43 +381,59 @@ window.onload = function () {
     if(!user.userout.url_profilo){
       user.userout.url_profilo = url_def_profilo;
     }
-    document.getElementById("background-profile").style.backgroundImage = "url('"+user.userout.url_back+"')"
-    document.getElementById("modifica-img-profilo-back").style.backgroundImage = "url('"+user.userout.url_back+"')"
-    document.getElementById("profilo-img").src = user.userout.url_profilo
-    document.getElementById("modifica-img-profile").src = user.userout.url_profilo
-    document.getElementById("n-followers-profilo").innerText = user.data_followings_followers.n_followers
-    document.getElementById("n_followings_view_left").innerText = user.data_followings_followers.n_followings
-    document.getElementById("n-followings-profilo").innerText = user.data_followings_followers.n_followings
-    document.getElementById("nome-cognome-profilo").innerText = user.userout.nome+" "+user.userout.cognome
-    document.getElementById("username-profilo").innerText = "@"+user.userout.username
-    document.getElementById("descrizione-profilo").innerText = user.userout.descrizione
-    //modal data predefiniti
-    document.getElementById("modifica-username").value = user.userout.username
-    document.getElementById("modifica-nome").value = user.userout.nome
-    document.getElementById("modifica-cognome").value = user.userout.cognome
-    document.getElementById("modifica-descrizione").value = user.userout.descrizione
-    document.getElementById("modifica-url-foto-profilo").value = user.userout.url_profilo
-    document.getElementById("modifica-url-foto-profilo-back").value = user.userout.url_back
-    
 
-    getUsernameFollowings()
+    if(!user_out){
+      document.getElementById("background-profile").style.backgroundImage = "url('"+user.userout.url_back+"')"
+      document.getElementById("modifica-img-profilo-back").style.backgroundImage = "url('"+user.userout.url_back+"')"
+      document.getElementById("profilo-img").src = user.userout.url_profilo
+      document.getElementById("modifica-img-profile").src = user.userout.url_profilo
+      document.getElementById("n-followers-profilo").innerText = user.data_followings_followers.n_followers
+      document.getElementById("n_followings_view_left").innerText = user.data_followings_followers.n_followings
+      document.getElementById("n-followings-profilo").innerText = user.data_followings_followers.n_followings
+      document.getElementById("nome-cognome-profilo").innerText = user.userout.nome+" "+user.userout.cognome
+      document.getElementById("username-profilo").innerText = "@"+user.userout.username
+      document.getElementById("descrizione-profilo").innerText = user.userout.descrizione
+      //modal data predefiniti
+      document.getElementById("modifica-username").value = user.userout.username
+      document.getElementById("modifica-nome").value = user.userout.nome
+      document.getElementById("modifica-cognome").value = user.userout.cognome
+      document.getElementById("modifica-descrizione").value = user.userout.descrizione
+      document.getElementById("modifica-url-foto-profilo").value = user.userout.url_profilo
+      document.getElementById("modifica-url-foto-profilo-back").value = user.userout.url_back
+      
+      getUsernameFollowings()
+    }else{
+      document.getElementById("background-profile-user-out").style.backgroundImage = "url('"+user.userout.url_back+"')"
+      document.getElementById("img-profile-user-out").src = user.userout.url_profilo
+      document.getElementById("n-followers-profilo-user-out").innerText = user.data_followings_followers.n_followers
+      document.getElementById("n-followings-profilo-user-out").innerText = user.data_followings_followers.n_followings
+      document.getElementById("nome-cognome-profilo-user-out").innerText = user.userout.nome+" "+user.userout.cognome
+      document.getElementById("username-profilo-user-out").innerText = "@"+user.userout.username
+      document.getElementById("descrizione-profilo-user-out").innerText = user.userout.descrizione
+      document.getElementById("unfollow-profilo-btn").ariaLabel = user.userout.username
+      document.getElementById("follow-profilo-btn").ariaLabel = user.userout.username
 
-    
+      isFollowingOfUser(user.userout.username,sessionStorage.getItem("username"))
+
+      } 
     
   }
 
+ 
+  
+  
   async function getUsernameFollowings(){
     //followings-container
     await doFetch("getUsernameFollowings/"+sessionStorage.getItem("username"))
     .then(users => {
+      document.getElementById('followers-container').innerHTML = ""
       users.followings_data_general.forEach(user => {
-        checkImage(user.url_foto_profilo,false)
-        console.log(result_image_checker)
+        var url_foto_profilo = (user.url_foto_profilo) ? user.url_foto_profilo : url_def_profilo ;
         document.getElementById('followers-container').innerHTML += `
-        <div class="row w-100 border rounded-pill p-2 m-auto follower">
+        <div class="row w-100 border rounded-pill p-2 m-auto follower following" aria-label="${user.username}">
                <div class="col d-flex flex-row gap-1">
                  <div class="rounded-pill position-relative">
-                   <img src="${user.url_foto_profilo}" alt=""
+                   <img src="${url_foto_profilo}" alt=""
                      class="rounded-pill m-auto" width="30" height="30" />
                    <span
                      class="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-success online-checker">
@@ -422,15 +443,144 @@ window.onload = function () {
                  </div>
                  <p class="prompt-medium fs-6 m-auto">${user.username}</p>
                </div>
-             </div>yf
+             </div>
        `
       })
+
+      var followings_element = document.getElementsByClassName("following")
+      var followings_element_array = Array.from(followings_element)
+
+      followings_element_array.forEach(following_element => {
+        following_element.addEventListener("click",function(){
+          getProfileOfUser(following_element.ariaLabel)
+        })
+      }) 
+
+    })
+  }
+
+  async function isFollowingOfUser(username_seguito,username_seguente){
+    await doFetch("isfollowingOfUser",{
+      username_seguente:username_seguente,
+      username_seguito:username_seguito
+    },"POST").then(res => {
+      
+      var isfollowing = res.isfollowing ? true : false;
+      changeBtnFollow(isfollowing)
+      
+    })
+  }
+
+  document.getElementById("unfollow-profilo-btn").addEventListener("click",async function(){
+    changeBtnFollow(false)
+    await doFetch("unfollow",{
+      username_seguito:document.getElementById("unfollow-profilo-btn").ariaLabel,
+      username_seguente:sessionStorage.getItem("username")
+    },"POST").then(res => {
+      getProfileOfUser(document.getElementById("unfollow-profilo-btn").ariaLabel)
+      getSuggestions()
+    })
+
+  })
+  
+  document.getElementById("follow-profilo-btn").addEventListener("click",async function(){
+    changeBtnFollow(true)
+    await doFetch("follow",{
+      username_seguito:document.getElementById("unfollow-profilo-btn").ariaLabel,
+      username_seguente:sessionStorage.getItem("username")
+    },"POST").then(res => {
+      getProfileOfUser(document.getElementById("unfollow-profilo-btn").ariaLabel)
+      getSuggestions()
+    })
+  })
+
+  
+
+
+  async function changeBtnFollow(isfollowing){    
+    if(isfollowing){
+      document.getElementById("unfollow-profilo-btn").style.cssText = csstext_show_element;
+      document.getElementById("follow-profilo-btn").style.cssText = csstext_hide_element;
+    }else{
+      document.getElementById("follow-profilo-btn").style.cssText = csstext_show_element;
+      document.getElementById("unfollow-profilo-btn").style.cssText = csstext_hide_element;
+    }  
+  }
+
+  
+
+  
+
+  async function getProfileOfUser(username){
+    await doFetch("getUser/"+username)
+    .then(user_data => {
+      setDataOfProfilo(user_data,true)
+      id_main_containers.forEach((id) => {
+        document.getElementById(id + "-container").style.cssText = csstext_hide_element;
+      });
+      document.getElementById("profile-user-container").style.cssText = csstext_show_element;
+      
+    })
+  }
+
+  
+
+
+
+  
+
+
+  async function getSuggestions(){//some users
+    await doFetch("getSuggestionsUsers/"+sessionStorage.getItem("username"))
+    .then(users_sugg => {
+      document.getElementById('suggestions-container').innerHTML = ""
+      users_sugg.suggestions_users.forEach(user => {
+        var url_foto_profilo = (user.url_foto_profilo) ? user.url_foto_profilo : url_def_profilo ;
+        document.getElementById('suggestions-container').innerHTML += `
+          <div class="row w-100 border rounded-4 p-2 m-auto prompt-medium">
+              <div class="col-8 d-flex flex-row gap-3 align-items-center">
+                <div class="rounded-pill">
+                  <img src="${url_foto_profilo}" alt=""
+                    class="rounded-pill m-auto" width="30" height="30" />
+                </div>
+                <div class="mt-3">
+                  <p class="prompt-medium fs-6">${user.username}</p>
+                </div>
+              </div>
+              <div class="col-4 rounded-3 bg-dark text-light text-center p-1 fs-6 follow-btn" aria-label="${user.username}">
+                  follow
+                </div>
+            </div>
+        `
+      });
+      let follow_btns = document.getElementsByClassName("follow-btn");
+      let follow_btns_array = Array.from(follow_btns)
+
+      follow_btns_array.forEach(el => {
+        el.addEventListener("click",function(){
+          followUser(el.ariaLabel)
+        })
+      })
+
     })
   }
 
 
+  async function followUser(username_seguito){
+    await doFetch("follow",{
+      username_seguente:sessionStorage.getItem("username"),
+      username_seguito:username_seguito
+    },"POST").then(res => {
+      
+      getSuggestions()
+      getUsernameFollowings()
+      getAllFeeds()
+
+    })
+  }
 
 
-
+  getSuggestions()
+  
 
 };

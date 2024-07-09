@@ -166,6 +166,17 @@ async def follow(followBase:followBase):
         return {"res_follow":True}
     else:
         return {"res_follow":False}
+    
+@app.post("/unfollow")
+async def follow(followBase:followBase):
+    if(checkFollow(followBase)):
+        cursor = db.cursor()
+        sql = f"DELETE FROM seguiti WHERE seguiti.username_seguito = '{followBase.username_seguito}' AND seguiti.username_seguente = '{followBase.username_seguente}'"
+        cursor.execute(sql)
+        db.commit()
+        return {"res_follow":True}
+    else:
+        return {"res_follow":False}
 
 @app.get("/getUsernameFollowings/{username}")
 async def getUsernameFollowings(username:str):
@@ -183,6 +194,24 @@ async def getUsernameFollowings(username:str):
         })
     return {"followings_data_general":usernames}    
 
+@app.get("/getSuggestionsUsers/{username}")
+async def getSuggestionsUsers(username:str):
+    cursor = db.cursor()
+    cursor.execute(f'''select y.username ,y.url_foto_profilo
+                        from (select seguiti.username_seguito
+			                from seguiti
+			                where seguiti.username_seguente = "{username}") as x
+                        right join utenti as y
+                        on y.username = x.username_seguito
+                        where x.username_seguito is null and y.username <> "{username}"'''   )
+    result = cursor.fetchall()
+    users = []
+    for user in result:
+        users.append({
+            "username":user[0],
+            "url_foto_profilo":user[1]
+        })
+    return {"suggestions_users":users}    
 
 
 
@@ -194,6 +223,15 @@ def checkPassword(pass1:str,pass2:str):
     pass1 = getMD5HashOfPassword(pass1)
     return pass1 == pass2
 
+@app.post("/isfollowingOfUser")
+async def isFollowingOfUser(followbase:followBase):
+    cursor = db.cursor()
+    cursor.execute(f'''SELECT * 
+                   FROM seguiti 
+                   WHERE seguiti.username_seguito = "{followbase.username_seguito}"
+                   and seguiti.username_seguente = "{followbase.username_seguente}"
+                   ''')
+    return {"isfollowing":cursor.fetchone()}
 
 def checkUserSignUp(username:str):
     cursor = db.cursor()
