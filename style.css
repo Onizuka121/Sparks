@@ -265,7 +265,7 @@ body {
   inline-size: min-content;
   
 }
-.following,.nav-feeds,.cancel-feed{
+.following,.nav-feeds,.cancel-feed,.btn-chat{
   cursor: pointer;
 }
 

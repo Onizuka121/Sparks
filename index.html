@@ -287,11 +287,11 @@
           </p>
           <div class="container-fluid px-4 pb-2 d-flex flex-column overflow-auto rounded-5 shadow gap-0">
             <div class="col d-flex pt-3 pb-0 flex-row gap-3 text-dark">
-              <img src="https://i.pinimg.com/736x/e8/3c/6a/e83c6a96199967b25b49bab731474d23.jpg" alt=""
+              <img id="img-chat-profile-user" src="" alt=""
                 class="rounded-pill" width="50" height="50" />
               <figure>
                 <blockquote class="blockquote">
-                  <p class="prompt-bold fs-5">Ms Ghost</p>
+                  <p class="prompt-bold fs-5" id="username-chat-profile-user"></p>
                 </blockquote>
                 <figcaption class="blockquote-footer prompt-bold text-success fs-5">
                   <span class="text-success">online</span>
@@ -300,73 +300,16 @@
             </div>
             <hr class="mt-0 text-dark" style="margin-top: -20px !important" />
 
-            <div class="container text-dark p-4 overflow-auto" id="chat-container">
-              <div class="row p-2">
-                <div class="col d-flex pt-3 pb-0 flex-row gap-3 text-dark">
-                  <img src="https://i.pinimg.com/736x/e8/3c/6a/e83c6a96199967b25b49bab731474d23.jpg" alt=""
-                    class="rounded-pill" width="40" height="40" />
-
-                  <p class="prompt-regular fs-6 px-2">
-                    Ms Ghost - <span class="text-secondary">06:34</span>
-                  </p>
-                </div>
-                <div class="row">
-                  <div class="col-1"></div>
-                  <div class="col-6 border shadow mx-3 p-3 rounded-4 prompt-regular chat-message">
-                    <span class="fs-6">CIao amico mio come stai?</span>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col d-flex pt-3 pb-0 flex-row gap-3 text-light">
-                  <div class="col-5"></div>
-                  <div class="col-6 border bg-dark shadow mx-3 p-3 rounded-4 prompt-regular chat-message">
-                    <span class="fs-7">Bene tu aisdhiaasdasdaasasdas asd
-                      asdsddasdasdasdasdsdasdasdasdsdsadshgidhaisuhd</span>
-                  </div>
-                  <div class="col-4"></div>
-                </div>
-              </div>
-              <div class="row p-2">
-                <div class="col d-flex pt-3 pb-0 flex-row gap-3 text-dark">
-                  <img src="https://i.pinimg.com/736x/e8/3c/6a/e83c6a96199967b25b49bab731474d23.jpg" alt=""
-                    class="rounded-pill" width="40" height="40" />
-
-                  <p class="prompt-regular fs-6 px-2">
-                    Ms Ghost - <span class="text-secondary">06:34</span>
-                  </p>
-                </div>
-                <div class="row">
-                  <div class="col-1"></div>
-                  <div class="col-6 border shadow mx-3 p-3 rounded-4 prompt-regular">
-                    <span class="fs-6">CIao amico mio come stai?</span>
-                  </div>
-                </div>
-              </div>
-              <div class="row p-2">
-                <div class="col d-flex pt-3 pb-0 flex-row gap-3 text-dark">
-                  <img src="https://i.pinimg.com/736x/e8/3c/6a/e83c6a96199967b25b49bab731474d23.jpg" alt=""
-                    class="rounded-pill" width="40" height="40" />
-
-                  <p class="prompt-regular fs-6 px-2">
-                    Ms Ghost - <span class="text-secondary">06:34</span>
-                  </p>
-                </div>
-                <div class="row">
-                  <div class="col-1"></div>
-                  <div class="col-6 border shadow mx-3 p-3 rounded-4 prompt-regular chat-message">
-                    <span class="fs-6 text-wrap">CIao amico mio come stai? asdhiuashdihasuidhas
-                      asodijasojdoajsodhoiashdas oahsdohasd</span>
-                  </div>
-                </div>
-              </div>
+            <div class="text-dark p-4 overflow-auto w-100" id="chat-container">
+             
+              
             </div>
             <div class="row rounded-5 p-3 bg-input-chat d-flex align-items-center">
               <div class="col">
                 <input type="text" id="input-chat-main" class="input-chat bg-input-chat prompt-light w-100"
                   placeholder="Something here..." />
               </div>
-              <div id="btn-send"
+              <div id="btn-send" aria-label=""
                 class="col-1 border border-dark bg-dark rounded-4 p-2 text-center d-flex align-items-center gap-2 prompt-bold"
                 style="cursor: pointer">
                 <span class="material-symbols-outlined text-center">
@@ -496,7 +439,7 @@
                   </figcaption>
                 </figure>
               </div>
-              <div class="col p-2">
+              <div class="col-3 p-2">
                 <div class="col border rounded-5 text-center shadow p-2 bg-dark" id="follow-profilo-btn" aria-label="">
                   <p class="fs-5 align-middle m-auto text-light prompt-medium">
                     follow
@@ -505,6 +448,13 @@
                 <div class="col border rounded-5 text-center  shadow p-2 border-dark" id="unfollow-profilo-btn" aria-label="">
                   <p class="fs-5 align-middle m-auto text-dark prompt-medium">
                     unfollow
+                  </p>
+                </div>
+              </div>
+              <div class="col-2 p-2">
+                <div class="col border bg-primary rounded-5 text-center shadow p-2" id="btn-chat-id" aria-label="">
+                  <p class="fs-5 align-middle m-auto text-light prompt-medium btn-chat">
+                    chat
                   </p>
                 </div>
               </div>

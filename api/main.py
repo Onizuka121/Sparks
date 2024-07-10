@@ -43,6 +43,15 @@ class Feed(BaseModel):
     username_inser:str
     url_foto_user_feed:str
 
+class ChatModel(BaseModel):
+    destinatario:str
+    mittente:str
+
+class ChatModelInfo(ChatModel):
+    cod_mess:int
+    ora:str
+    messaggio:str
+    url_foto_profilo_dest:str
 
 time.sleep(4)
 
@@ -52,8 +61,6 @@ db = mysql.connector.connect(
   password=os.getenv('DB_PASSWORD'),
   database=os.getenv('DB_NAME')
 )
-
-
 
 
 @app.get("/allfeeds/{username}")
@@ -252,17 +259,9 @@ async def getSuggestionsUsers(username:str):
             "username":user[0],
             "url_foto_profilo":user[1]
         })
+
     return {"suggestions_users":users}    
 
-
-
-def getMD5HashOfPassword(password:str):
-    pass_hash = hashlib.md5(password.encode())
-    return pass_hash.hexdigest()
-
-def checkPassword(pass1:str,pass2:str):
-    pass1 = getMD5HashOfPassword(pass1)
-    return pass1 == pass2
 
 @app.post("/isfollowingOfUser")
 async def isFollowingOfUser(followbase:followBase):
@@ -273,6 +272,54 @@ async def isFollowingOfUser(followbase:followBase):
                    and seguiti.username_seguente = "{followbase.username_seguente}"
                    ''')
     return {"isfollowing":cursor.fetchone()}
+
+
+@app.post("/getChatData")
+async def getChatData(chat_model:ChatModel):
+    cursor = db.cursor()
+    cursor.execute(f'''
+        SELECT messaggi.*,utenti.url_foto_profilo
+        FROM messaggi
+        INNER JOIN utenti
+        ON utenti.username = messaggi.username_mittente
+        WHERE (messaggi.username_destinatario = "{chat_model.destinatario}" 
+        OR messaggi.username_destinatario = "{chat_model.mittente}")
+        AND (messaggi.username_mittente = "{chat_model.destinatario}" 
+        OR messaggi.username_mittente = "{chat_model.mittente}")
+        ORDER BY messaggi.ora
+        
+    ''')
+    chat_models_info = []
+    result = cursor.fetchall()
+    for chat_model in result:
+        chat_models_info.append(ChatModelInfo(
+            destinatario=chat_model[4],
+            mittente=chat_model[3],
+            messaggio=chat_model[2],
+            ora=chat_model[1].strftime("%H:%M"),
+            cod_mess=chat_model[0],
+            url_foto_profilo_dest=chat_model[5]
+        ))
+
+    return {"chatdata":chat_models_info}
+
+@app.put("/sendMessage")
+async def sendMessage(chat_info:ChatModelInfo):
+    cursor = db.cursor()
+    sql = "INSERT INTO messaggi(messaggio,username_mittente,username_destinatario) VALUES (%s,%s,%s)"
+    val = (chat_info.messaggio,chat_info.mittente,chat_info.destinatario)
+    cursor.execute(sql, val)
+    db.commit()
+    return {"res":True}
+
+def getMD5HashOfPassword(password:str):
+    pass_hash = hashlib.md5(password.encode())
+    return pass_hash.hexdigest()
+
+def checkPassword(pass1:str,pass2:str):
+    pass1 = getMD5HashOfPassword(pass1)
+    return pass1 == pass2
+
 
 def checkUserSignUp(username:str):
     cursor = db.cursor()
