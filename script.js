@@ -285,7 +285,7 @@ window.onload = function () {
   async function doFetch(url, body = {}, method = "GET") {
 
     if (method == "POST" || method == "PUT") {
-      var richiesta = new Request("http://localhost:8000/" + url, {
+      var richiesta = new Request("http://192.168.0.120:8000/" + url, {
         method: method,
         headers: new Headers({
           "Content-Type": "application/json"
@@ -293,7 +293,7 @@ window.onload = function () {
         body: JSON.stringify(body)
       });
     } else {
-      var richiesta = new Request("http://localhost:8000/" + url, {
+      var richiesta = new Request("http://192.168.0.120:8000/" + url, {
         method: method,
         headers: new Headers({
           "Content-Type": "application/json"
