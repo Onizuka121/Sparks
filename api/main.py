@@ -59,7 +59,37 @@ db = mysql.connector.connect(
 @app.get("/allfeeds/{username}")
 async def getAllFeedsOfFollowings(username:str):
     cursor = db.cursor()
-    cursor.execute(f"SELECT feeds.*,utenti.url_foto_profilo FROM feeds INNER JOIN seguiti ON feeds.username_inser = seguiti.username_seguito INNER JOIN utenti ON utenti.username = feeds.username_inser WHERE seguiti.username_seguente  = '{username}' ORDER BY feeds.data_inserimento")
+    cursor.execute(f"SELECT feeds.*,utenti.url_foto_profilo FROM feeds INNER JOIN seguiti ON feeds.username_inser = seguiti.username_seguito INNER JOIN utenti ON utenti.username = feeds.username_inser WHERE seguiti.username_seguente  = '{username}' ORDER BY feeds.data_inserimento DESC")
+    result = cursor.fetchall()
+    feeds = []
+    for feed in result:
+        x = feed[3]
+        date = x.strftime("%d")+" "+x.strftime("%B")+" "+x.strftime("%Y")
+        url_foto = feed[5]
+        if(not feed[5]):
+            url_foto = "default.png"
+        tmp_feed = Feed(
+            cod_feed=feed[0],
+            descrizione=feed[1],
+            url_foto_feed=feed[2],
+            data_inserimento=date,
+            username_inser=feed[4],
+            url_foto_user_feed=url_foto
+        )
+        feeds.append(tmp_feed)
+
+    return {"feeds":feeds}
+
+@app.get("/getAllUserFeeds/{username}")
+async def getAllUserFeeds(username:str):
+    cursor = db.cursor()
+    cursor.execute(f'''
+        SELECT feeds.*,utenti.url_foto_profilo
+        FROM feeds
+        INNER JOIN utenti ON utenti.username = feeds.username_inser
+        WHERE feeds.username_inser = '{username}'
+        ORDER BY feeds.data_inserimento DESC
+                ''')
     result = cursor.fetchall()
     feeds = []
     for feed in result:
@@ -89,6 +119,14 @@ async def insertFeed(feed:Feed):
     cursor.execute(sql, val)
     db.commit()
     return {"res":True}
+
+@app.delete("/removeFeed/{cod_feed}")
+async def removeFeed(cod_feed:int):
+    cursor = db.cursor()
+    sql = f"DELETE FROM feeds WHERE feeds.cod_feed = {cod_feed}"
+    cursor.execute(sql)
+    db.commit()
+    return {"res":cursor.rowcount}
     
 
 @app.get("/getUser/{username}")
@@ -177,6 +215,9 @@ async def follow(followBase:followBase):
         return {"res_follow":True}
     else:
         return {"res_follow":False}
+
+
+
 
 @app.get("/getUsernameFollowings/{username}")
 async def getUsernameFollowings(username:str):

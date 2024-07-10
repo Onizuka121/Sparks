@@ -265,6 +265,9 @@ body {
   inline-size: min-content;
   
 }
+.following,.nav-feeds,.cancel-feed{
+  cursor: pointer;
+}
 
 .img-profile{
   height: 250px;

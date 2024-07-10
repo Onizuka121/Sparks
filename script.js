@@ -106,73 +106,101 @@ window.onload = function () {
       res.feeds.forEach(feed => {
               document.getElementById("posts-container").innerHTML += getFormattedCardFeed(feed)
       })
+      if(document.getElementById("posts-container").innerHTML == ""){
+        document.getElementById("posts-container").innerHTML = `
+       <div class="alert alert-light prompt-medium text-center fs-5 shadow m-auto px-5" role="alert">
+        NO FEEDS
+      </div>
+        `
+      }
     })
 
-    function getFormattedCardFeed(feed){
+    
+  }
+  
+  function getFormattedCardFeed(feed,is_user_feed = false){
+    var user_feed_html = ""
 
-
-      var html_feed = `
-      <div class="p-3 d-flex flex-column border rounded-5 text-dark mb-3 shadow w-100">
-              <div class="row text-dark">
-                <div class="col d-flex flex-row gap-3">
-                  <img src="${feed.url_foto_user_feed}" alt=""
-                    class="rounded-pill" width="50" height="50" />
-                  <figure>
-                    <blockquote class="blockquote">
-                      <p class="prompt-medium fs-6">${feed.username_inser}</p>
-                    </blockquote>
-                    <figcaption class="blockquote-footer prompt-extralight">
-                      <span class="sub-span">${feed.data_inserimento}</span>
-                    </figcaption>
-                  </figure>
-                </div>
+    if(is_user_feed){
+      user_feed_html = `
+      <div class="col-2 d-flex align-items-center">
+        <div>
+        <span class="material-symbols-outlined m-auto bg-danger text-light p-2 rounded-4 fs-4 cancel-feed" id="${feed.cod_feed}">
+        delete_forever
+        </span>
+        </div>
+      </div>
+      `
+    }
+    var html_feed = `
+    <div class="p-3 d-flex flex-column border rounded-5 text-dark mb-3 shadow w-100">
+            <div class="row text-dark">
+              <div class="col d-flex flex-row gap-3">
+                <img src="${feed.url_foto_user_feed}" alt=""
+                  class="rounded-pill" width="50" height="50" />
+                <figure>
+                  <blockquote class="blockquote">
+                    <p class="prompt-medium fs-6">${feed.username_inser}</p>
+                  </blockquote>
+                  <figcaption class="blockquote-footer prompt-extralight">
+                    <span class="sub-span">${feed.data_inserimento}</span>
+                  </figcaption>
+                </figure>
               </div>
-              <div class="px-2 w-100">
-                <p class="lh-sm prompt-regular">
-                 ${feed.descrizione}
-                </p>
-                <div class="container-fluid">
-                  <img src="${feed.url_foto_feed}"
-                    class="img-fluid rounded-5" alt="..." />
-                </div>
-              </div>
-
-              <div class="container">
-                <div class="row p-4 px-2 w-100">
-                  <div class="col p-3 text-center">
-                    <div class="rounded-5 fs-6 prompt-regular text-primary d-flex flex-row align-items-center gap-2">
-                      <span class="material-symbols-outlined text-center">
-                        visibility
-                      </span>
-                      4563
-                    </div>
-                  </div>
-                  <div class="col interazione like p-3 rounded-5 text-center">
-                    <div class="rounded-5 fs-6 prompt-regular text-success d-flex flex-row align-items-center gap-2">
-                      <span class="material-symbols-outlined">
-                        thumb_up
-                      </span>
-                      564
-                    </div>
-                  </div>
-                  <div class="col interazione comment p-3 rounded-5 text-center">
-                    <div class="rounded-5 fs-6 prompt-regular text-info d-flex flex-row align-items-center gap-2">
-                      <span class="material-symbols-outlined"> comment </span>
-                      34
-                    </div>
-                  </div>
-                  <div class="col-5"></div>
-                </div>
+              ${user_feed_html}
+             
+            </div>
+            <div class="px-2 w-100">
+              <p class="lh-sm prompt-regular">
+               ${feed.descrizione}
+              </p>
+              <div class="container-fluid">
+                <img src="${feed.url_foto_feed}"
+                  class="img-fluid rounded-5" alt="..." />
               </div>
             </div>
-      `
 
-      return html_feed;
+            <div class="container">
+              <div class="row p-4 px-2 w-100">
+                <div class="col p-3 text-center">
+                  <div class="rounded-5 fs-6 prompt-regular text-primary d-flex flex-row align-items-center gap-2">
+                    <span class="material-symbols-outlined text-center">
+                      visibility
+                    </span>
+                    4563
+                  </div>
+                </div>
+                <div class="col interazione like p-3 rounded-5 text-center">
+                  <div class="rounded-5 fs-6 prompt-regular text-success d-flex flex-row align-items-center gap-2">
+                    <span class="material-symbols-outlined">
+                      thumb_up
+                    </span>
+                    564
+                  </div>
+                </div>
+                <div class="col interazione comment p-3 rounded-5 text-center">
+                  <div class="rounded-5 fs-6 prompt-regular text-info d-flex flex-row align-items-center gap-2">
+                    <span class="material-symbols-outlined"> comment </span>
+                    34
+                  </div>
+                </div>
+                <div class="col-5"></div>
+              </div>
+            </div>
+          </div>
+    `
 
-    }
+    return html_feed;
 
   }
 
+
+  
+
+
+  
+
+  
   document.getElementById("modifica-btn").addEventListener("click",async function(){
     var nome_modificato = document.getElementById("modifica-nome").value.trim()
     var cognome_modificato = document.getElementById("modifica-cognome").value.trim()
@@ -445,6 +473,7 @@ window.onload = function () {
                </div>
              </div>
        `
+       
       })
 
       var followings_element = document.getElementsByClassName("following")
@@ -457,6 +486,7 @@ window.onload = function () {
       }) 
 
     })
+
   }
 
   async function isFollowingOfUser(username_seguito,username_seguente){
@@ -479,6 +509,8 @@ window.onload = function () {
     },"POST").then(res => {
       getProfileOfUser(document.getElementById("unfollow-profilo-btn").ariaLabel)
       getSuggestions()
+      getUsernameFollowings()
+      setUpDataOfUser()
     })
 
   })
@@ -491,6 +523,9 @@ window.onload = function () {
     },"POST").then(res => {
       getProfileOfUser(document.getElementById("unfollow-profilo-btn").ariaLabel)
       getSuggestions()
+      getUsernameFollowings()
+      setUpDataOfUser()
+
     })
   })
 
@@ -537,7 +572,7 @@ window.onload = function () {
       users_sugg.suggestions_users.forEach(user => {
         var url_foto_profilo = (user.url_foto_profilo) ? user.url_foto_profilo : url_def_profilo ;
         document.getElementById('suggestions-container').innerHTML += `
-          <div class="row w-100 border rounded-4 p-2 m-auto prompt-medium">
+          <div class="row w-100 border rounded-4 p-2 m-auto prompt-medium following" aria-label='${user.username}'>
               <div class="col-8 d-flex flex-row gap-3 align-items-center">
                 <div class="rounded-pill">
                   <img src="${url_foto_profilo}" alt=""
@@ -559,6 +594,8 @@ window.onload = function () {
       follow_btns_array.forEach(el => {
         el.addEventListener("click",function(){
           followUser(el.ariaLabel)
+          getUsernameFollowings()
+          setUpDataOfUser()
         })
       })
 
@@ -579,8 +616,56 @@ window.onload = function () {
     })
   }
 
-
   getSuggestions()
+
+
+
+  var nav_feeds_array = Array.from(document.getElementsByClassName("nav-feeds"))
+  nav_feeds_array.forEach(nav_feeds => {
+    nav_feeds.addEventListener("click",function(){
+      nav_feeds_array.forEach(nav_feeds => {
+        nav_feeds.classList.remove("shadow","border","prompt-medium")
+        nav_feeds.classList.add("prompt-light")
+
+      })
+      nav_feeds.classList.add("shadow","border","prompt-medium")
+      if(nav_feeds.ariaLabel == "popularFeeds"){
+        getAllFeeds()
+      }else{
+        getUserFeeds()
+      }
+    })
+  })
+
+  async function getUserFeeds(){
+    await doFetch("getAllUserFeeds/"+sessionStorage.getItem("username"))
+    .then(user_feeds => {
+      document.getElementById("posts-container").innerHTML = ""
+      user_feeds.feeds.forEach(feed => {
+              document.getElementById("posts-container").innerHTML += getFormattedCardFeed(feed,true)
+              var cancel_feed_array = Array.from(document.getElementsByClassName("cancel-feed"))
+              cancel_feed_array.forEach(cancel_btn => {
+                cancel_btn.addEventListener("click",async function(){
+                  await doFetch("removeFeed/"+cancel_btn.id,{},"DELETE")
+                  .then(res => {
+                    if(res.res == 1){
+                      getUserFeeds()
+                    }
+                  })
+                })
+              })     
+      })
+      if(document.getElementById("posts-container").innerHTML == ""){
+        document.getElementById("posts-container").innerHTML = `
+       <div class="alert alert-light prompt-medium text-center fs-5 shadow m-auto px-5" role="alert">
+        NO FEEDS
+      </div>
+        `
+      }
+    })
+  }
+
+
   
 
 };
