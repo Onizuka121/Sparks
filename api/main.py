@@ -51,7 +51,6 @@ class ChatModelInfo(ChatModel):
     cod_mess:int
     ora:str
     messaggio:str
-    url_foto_profilo_dest:str
 
 time.sleep(4)
 
@@ -278,19 +277,18 @@ async def isFollowingOfUser(followbase:followBase):
 async def getChatData(chat_model:ChatModel):
     cursor = db.cursor()
     cursor.execute(f'''
-        SELECT messaggi.*,utenti.url_foto_profilo
+        SELECT messaggi.*
         FROM messaggi
-        INNER JOIN utenti
-        ON utenti.username = messaggi.username_mittente
         WHERE (messaggi.username_destinatario = "{chat_model.destinatario}" 
         OR messaggi.username_destinatario = "{chat_model.mittente}")
         AND (messaggi.username_mittente = "{chat_model.destinatario}" 
         OR messaggi.username_mittente = "{chat_model.mittente}")
         ORDER BY messaggi.ora
-        
     ''')
-    chat_models_info = []
     result = cursor.fetchall()
+    chat_models_info = []
+    cursor.execute(f"SELECT utenti.url_foto_profilo FROM utenti WHERE utenti.username = '{chat_model.mittente}'")
+    url_foto_profilo = cursor.fetchone()[0]
     for chat_model in result:
         chat_models_info.append(ChatModelInfo(
             destinatario=chat_model[4],
@@ -298,10 +296,10 @@ async def getChatData(chat_model:ChatModel):
             messaggio=chat_model[2],
             ora=chat_model[1].strftime("%H:%M"),
             cod_mess=chat_model[0],
-            url_foto_profilo_dest=chat_model[5]
         ))
 
-    return {"chatdata":chat_models_info}
+    return {"chatdata":chat_models_info,
+            "url_foto_profilo":url_foto_profilo}
 
 @app.put("/sendMessage")
 async def sendMessage(chat_info:ChatModelInfo):
@@ -311,6 +309,25 @@ async def sendMessage(chat_info:ChatModelInfo):
     cursor.execute(sql, val)
     db.commit()
     return {"res":True}
+
+@app.get("/getUserWithChat/{username}")
+async def getUserWithChat(username:str):
+    cursor = db.cursor()
+    cursor.execute(f'''
+        SELECT DISTINCT(messaggi.username_mittente),utenti.url_foto_profilo
+        FROM messaggi
+        INNER JOIN utenti
+        ON messaggi.username_mittente = utenti.username
+        WHERE messaggi.username_destinatario = "{username}"
+    ''')
+    users = []
+    result = cursor.fetchall()
+    for user in result:
+        users.append({
+            "username":user[0],
+            "url_foto_profilo":user[1]
+        })
+    return {"users":users}
 
 def getMD5HashOfPassword(password:str):
     pass_hash = hashlib.md5(password.encode())

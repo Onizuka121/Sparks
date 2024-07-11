@@ -257,18 +257,16 @@ window.onload = function () {
 
     if (text_sended != "") {
       chat_container.innerHTML += `
-      <div class="row">
-               <div class="col d-flex pt-3 pb-0 flex-row gap-3 text-light">
-                   <div class="col-5"></div>
-                   <div
-                     class="col-6 border bg-dark shadow mx-3 p-3 rounded-4 prompt-regular chat-message">
-                     <span class="fs-7">${text_sended}</span>
-                   </div>
-                   <div class="col-1"></div>
-               </div>
-             </div>
-   `;
-
+        <div class="row">
+                <div class="col d-flex pt-3 pb-0 flex-row gap-3 text-light">
+                  <div class="col-5"></div>
+                  <div class="col-6 border bg-dark shadow mx-3 p-3 rounded-4 prompt-regular chat-message">
+                    <span class="fs-7">${text_sended}</span>
+                  </div>
+                  <div class="col-4"></div>
+                </div>
+              </div>
+      `
       await doFetch("sendMessage", {
         destinatario: destinatario,
         mittente: sessionStorage.getItem("username"),
@@ -276,7 +274,7 @@ window.onload = function () {
         ora: "",
         messaggio: text_sended,
         url_foto_profilo_dest: ""
-      }, "PUT").then(res => {
+      }, "PUT",false).then(res => {
         console.log(res)
       })
     }
@@ -295,8 +293,10 @@ window.onload = function () {
   });
   getAllFeeds()
 
-  async function doFetch(url, body = {}, method = "GET") {
-
+  async function doFetch(url, body = {}, method = "GET",interval_stop = true) {
+    if(interval_stop){
+      clearInterval(interval_global)
+    }
     if (method == "POST" || method == "PUT") {
       var richiesta = new Request("http://192.168.0.120:8000/" + url, {
         method: method,
@@ -317,6 +317,53 @@ window.onload = function () {
     var response = fetch(richiesta).then(response => response.json())
     return response
   }
+
+
+  async function getUserWithChat(){
+    await doFetch("getUserWithChat/"+sessionStorage.getItem("username"))
+    .then(res => {
+      var chats_container = document.getElementById("chats-container")
+      if(res.users.length > 0){
+        res.users.forEach(user => {
+          chats_container.innerHTML += `
+            <div class="row w-100 border rounded-pill p-2 m-auto chat-user" aria-label="${user.username}">
+              <div class="col d-flex flex-row gap-1">
+                <div class="rounded-pill position-relative">
+                  <img src="${user.url_foto_profilo}" alt=""
+                    class="rounded-pill m-auto" width="30" height="30" />
+                  <span
+                    class="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-success online-checker">
+                    1
+                    <span class="visually-hidden">unread messages</span>
+                  </span>
+                </div>
+
+                <p class="prompt-medium fs-6 m-auto">${user.username}</p>
+              </div>
+            </div>
+          `  
+        })
+
+        var chat_user_array = Array.from(document.getElementsByClassName("chat-user")) 
+        chat_user_array.forEach(el => {
+          el.addEventListener("click",function(){
+            clearInterval(interval_global)
+            HandleNavButton(navs_array[1])
+            getChatData(el.ariaLabel)
+          })
+        })
+      }else{
+        chats_container.innerHTML = `
+         <div class="alert alert-light prompt-medium text-center fs-6 m-auto px-5" role="alert">
+        NO CHATS
+      </div>
+        `
+      }
+      
+    })
+  }
+
+  getUserWithChat()
 
 
   async function CheckLoginCredentials() {
@@ -547,29 +594,28 @@ window.onload = function () {
   })
 
   async function getChatData(username_chat) {
-    var count = 0
     await doFetch("getChatData", {
       destinatario: sessionStorage.getItem("username"),
       mittente: username_chat
-    }, "POST").then(res => {
-      console.log(res)
-
-      var is_src = false;
+    }, "POST",false).then(res => {
+      console.log("ricevo")
+  
+      res.url_foto_profilo = res.url_foto_profilo ? res.url_foto_profilo : url_def_profilo
       var chat_container = document.getElementById("chat-container")
       chat_container.innerHTML = ""
+      
       document.getElementById("username-chat-profile-user").innerText = username_chat
       document.getElementById("btn-send").ariaLabel = username_chat
       sessionStorage.setItem("user-chat", username_chat)
+      document.getElementById("img-chat-profile-user").src = res.url_foto_profilo
 
       res.chatdata.forEach(message => {
-
         if (message.mittente == username_chat) {
           chat_container.innerHTML += `
            <div class="row p-2">
                 <div class="col d-flex pt-3 pb-0 flex-row gap-3 text-dark">
-                  <img src="${message.url_foto_profilo_dest}" alt=""
+                  <img src="${res.url_foto_profilo}" alt=""
                     class="rounded-pill" width="40" height="40" />
-
                   <p class="prompt-regular fs-6 px-2">
                     ${username_chat} - <span class="text-secondary">${message.ora}</span>
                   </p>
@@ -582,10 +628,7 @@ window.onload = function () {
                 </div>
               </div>
           `
-          if (!is_src) {
-            document.getElementById("img-chat-profile-user").src = message.url_foto_profilo_dest
-            is_src = true
-          }
+          
         } else if (message.mittente == sessionStorage.getItem("username")) {
           chat_container.innerHTML += `
             <div class="row">
@@ -605,18 +648,18 @@ window.onload = function () {
     })
 
     var interval = setInterval( () => {
-
-        getChatData(username_chat)
-        clearInterval(interval)
-
-    }, 2000);
+      getChatData(username_chat)
+      clearInterval(interval)
+  }, 2000);
+  interval_global = interval;
+    
 
 
 
   }
 
-
-
+  var interval_global;
+  
 
   async function changeBtnFollow(isfollowing) {
     if (isfollowing) {
@@ -631,6 +674,7 @@ window.onload = function () {
 
 
   async function getProfileOfUser(username) {
+    
     await doFetch("getUser/" + username)
       .then(user_data => {
         setDataOfProfilo(user_data, true)
