@@ -298,7 +298,7 @@ window.onload = function () {
       clearInterval(interval_global)
     }
     if (method == "POST" || method == "PUT") {
-      var richiesta = new Request("http://192.168.0.120:8000/" + url, {
+      var richiesta = new Request("http://54.90.30.254:8000/" + url, {
         method: method,
         headers: new Headers({
           "Content-Type": "application/json"
@@ -306,7 +306,7 @@ window.onload = function () {
         body: JSON.stringify(body)
       });
     } else {
-      var richiesta = new Request("http://192.168.0.120:8000/" + url, {
+      var richiesta = new Request("http://54.90.30.254:8000/" + url, {
         method: method,
         headers: new Headers({
           "Content-Type": "application/json"
@@ -788,18 +788,6 @@ window.onload = function () {
       })
   }
 
-      var richiesta = new Request("https://gztntkzeymn7dkk4lpruozitcm0jbzsz.lambda-url.us-east-1.on.aws/", {
-        method: "GET",
-        headers: new Headers({
-          "Content-Type": "application/json"
-        })
-      });
-    
-  
-    var response = fetch(richiesta).then(response => response.json())
-    response.then(res => {
-      console.log("response aws",res)
       
-    })
 
 };
